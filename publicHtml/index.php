@@ -17,7 +17,9 @@ if(is_null($GLOBALS['conn']) == true)
 
 <?php
 
-$sql = "SELECT id,problem_name FROM problems";
+$userid = 1;
+
+$sql = "SELECT id,name FROM problem_type";
 
 $result = mysqli_query($conn,$sql);
 
@@ -27,17 +29,17 @@ if(!$result || (mysqli_num_rows($result) == 0))
 }
 else
 {
-    echo "<h2> Problems </h2>";
+    echo "<h2> Problem Types</h2>";
     echo "<table class='table table-striped table borderless table-condensed' width='100'>";
     $count = 1;
     while($row = $result->fetch_assoc())
     {
 
         echo "<tr>";
-        echo "<td> Problem no. ".$count."</td>";
-        echo "<td>".$row["problem_name"]."</td>";
-        $problemurl = "tryProblem.php?id=".$row["id"];
-        echo "<td><div style='float:right;'> <a href='".$problemurl."' class='btn btn-primary'> Give it a shot! </a> </div> </td>";
+        echo "<td> Problem involving </td>";
+        echo "<td>".$row["name"]."</td>";
+        $findPurl = "FindProblemAndPartner.php?problemtypeid=".$row["id"]."&userid=".$userid;
+        echo "<td><div style='float:right;'> <a href='".$findPurl."' class='btn btn-primary'> Give it a shot! </a> </div> </td>";
         echo "</tr>";
         $count++;
 
