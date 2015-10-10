@@ -1,35 +1,54 @@
-package backend;
-
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
-enum CompileResult {
-	COMPILE_ERROR, COMPILE_SUCCESS
-}
+public class CompAndExecHelper {
 
-enum ExecutorResult {
-	RUN_ERROR, RUN_SUCCESS, TLE
-}
+	public static File createJavaFile(StringBuilder javaFileString, String mainMethod) throws IOException {
 
-public class CodeTester {
+		String javaFilePath = new File(".").getCanonicalPath() + File.separator + "Solution.java";
+		File file = new File(javaFilePath);
+		FileWriter out = new FileWriter(file);
+		inputImports(out);
+		int index = javaFileString.lastIndexOf("}");
+		// System.out.println("INDEX : " + index);
+		// System.out.println("CHAR : "+ javaFileString.charAt(index));
+		javaFileString.deleteCharAt(index);
+		System.out.println(javaFileString);
+		// javaFileString.substring(0, javaFileString.)
+		//System.out.println(javaFileString);
+		out.write(javaFileString.toString());
+		out.write("\n");
+		out.write(mainMethod);
+		out.write("\n}");
+		out.flush();
+		out.close();
+		return file;
 
-	public static void main(String[] args) throws IOException {
+	}
 
-		String javaFileString = CompAndExecHelper.readFileToString();
-		String javaFilePath = CompAndExecHelper.createJavaFile(javaFileString).getCanonicalPath();
-		Compiler compiler = new Compiler();
-		CompileResult cr = compiler.compile("java", javaFilePath);
-		if (CompileResult.valueOf("COMPILE_ERROR").equals(cr)) {
-			System.out.println("Compilation failed!");
-			System.exit(1);
+	public static StringBuilder readFileToString() throws IOException {
+
+		File dirs = new File(".");
+		String filePath = dirs.getCanonicalPath() + File.separator + "Solution.java";
+
+		StringBuilder stringBuff = new StringBuilder();
+		List<String> fileString = Files.readAllLines(Paths.get(filePath));
+		for (String line : fileString) {
+			stringBuff.append(line);
+			stringBuff.append(System.getProperty("line.separator"));
 		}
-		if (CompileResult.valueOf("COMPILE_SUCCESS").equals(cr)) {
-			System.out.println("Compilation Completed Successfully!");
-		}
-		ExecutorResult execResult = Executor.execute("java", 0);
-		if (ExecutorResult.valueOf("TLE").equals(execResult)) {
-			System.out.println("Time Limit Exceeded");
-			System.exit(1);
-		}
+		return stringBuff;
+
+	}
+
+	public static void inputImports(FileWriter out) throws IOException {
+
+		out.write("import java.util.*;\n");
+		out.write("import java.lang.*;\n");
 
 	}
 
