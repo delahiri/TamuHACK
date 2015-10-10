@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../resources/config.php';
 if(is_null($GLOBALS['conn']) == true)
 {
@@ -12,37 +13,44 @@ if(is_null($GLOBALS['conn']) == true)
 ?>
 
 <?php
-$userid = $_POST["login"];
+$name = $_POST["login"];
 $password = $_POST["password"];
 
-$sql = "SELECT password from user where userid='".$userid."'";
+
+$sql = "SELECT userid,password from user where name='".$name."'";
 $result = mysqli_query($conn,$sql);
 $validlogin = false;
 $result = mysqli_query($conn,$sql);
-while($row = $result->fetch_assoc())
+
+
+if(!$result || (mysqli_num_rows($result) == 0))
 {
-
-    $pass = $row["password"];
-
-}
-
-if($password == $pass)
-{
-	$validlogin = true;
-}
-
-if(!$validlogin)
-{
-	header('Location: loginPage.php');
-	exit;
+	echo $conn->error;
+	echo "Something went wrong. We are fixing it asap.";
 }
 else
 {
-	session_start();
-	$_SESSION["userid"] = $userid;
-	header('Location: index.php');
+	while($row = $result->fetch_assoc())
+	{
+		$userid = $row["userid"];
+
+		$pass = $row["password"];
+
+	}
+
+	if($password == $pass)
+	{
+		echo "password correct";
+		$_SESSION["userid"] = $userid;
+		$_SESSION["favColor"] = "blue";
+		header('Location: index.php');
+		exit;
+
+	}
+
+	header('Location: loginPage.php');
 	exit;
-	
+
 }
 
 
