@@ -7,5 +7,5 @@
  */
 
 echo "Recived request with id".$_GET["id"];
-
+//will remove this echo
 ?>
