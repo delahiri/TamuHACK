@@ -3,11 +3,32 @@
  * Created by PhpStorm.
  * User: RatneshThakur
  * Date: 10/9/2015
- * Time: 9:48 PM
+ * Time: 6:58 PM
  */
+$PageTitle="Home";
+include_once("header.php");
 
-echo "Recived request with id".$_GET["id"];
-//will remove this echo
+require '../resources/config.php';
+if(is_null($GLOBALS['conn']) == true)
+{
+    $conn = getConnection();
+}
+
+$problemid = $_GET["id"];
+
+$sql = "select solution_template from problems where id='".$problemid."'";
+$result = mysqli_query($conn,$sql);
+
+if(!$result || (mysqli_num_rows($result) == 0))
+{
+    echo "Something went wrong. We are fixing it asap.";
+}
+else
+{
+    $row = $result->fetch_assoc();
+    $solution_template = $row['solution_template'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,12 +80,7 @@ echo "Recived request with id".$_GET["id"];
 <div class="jumbotron">
     <div class="row">
         <div class="col-lg-6 col-md-8 col-sm-8">
-            <pre id="editor3" style="width: 100%;">function foo(items) {
-    var i;
-    for (i = 0; i &lt; items.length; i++) {
-        alert("Ace Rocks " + items[i]);
-    }
-}</pre>
+            <pre id="editor3" style="width: 100%;"> <?php echo $solution_template ?></pre>
             <div class="scrollmargin"></div>
             <button class="btn btn-success" onclick="func();" type="button">Submit</button>
             <div id="hidden_form">
