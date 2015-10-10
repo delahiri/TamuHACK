@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
+	
+	Map<String,Integer> tokens = new HashMap<String,Integer>();
+	
 
 
     @RequestMapping("/getResult")
@@ -23,9 +30,6 @@ public class Controller {
     	
     if(validateToken(token))
     {
-    //	String program = fetchProgram(Long.parseLong(id));
-    	
-    	
     	
     	return new Result(0, Long.parseLong(id), null, null);
     	
@@ -49,6 +53,7 @@ public class Controller {
             buffer.append((char) randomLimitedInt);
         }
         String generatedString = buffer.toString();
+        tokens.put(generatedString,0);
      
    
     	return new Token(generatedString);
@@ -84,6 +89,6 @@ public class Controller {
 	}
 
 	private boolean validateToken(String token) {
-		return true;
+		return tokens.containsKey(token);
 	}
 }
