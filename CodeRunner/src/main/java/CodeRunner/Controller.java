@@ -1,9 +1,13 @@
 package CodeRunner;
 
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +34,28 @@ public class Controller {
     else 
     	return null;
     }
+    
+    
+    @RequestMapping("/getToken")
+    public Token getToken() {
+ 
+        int leftLimit = 97; 
+        int rightLimit = 122; 
+        int targetStringLength = 20;
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int) 
+              (new Random().nextFloat() * (rightLimit - leftLimit));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+     
+   
+    	return new Token(generatedString);
+    }
+    
+    
+    
 
 	private String fetchProgram(long parseLong) 
 	{

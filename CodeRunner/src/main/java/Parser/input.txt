@@ -1,0 +1,4 @@
+{"variables":[{"type":"int", "value":"1"},{ "type":"float", "value":"2.0"},{"type":"1DintArray", "value":"2,3,4,5"},{"type":"2DintArray", "value":"2,3,4,5,,6,7,8,9"}]}
+{"variables":[{"type":"int", "value":"1"},{ "type":"float", "value":"2.0"},{"type":"1DintArray", "value":"2,3,4,5"},{"type":"2DintArray", "value":"2,3,4,5,,6,7,8,9"}]}
+{"variables":[{"type":"int", "value":"1"},{ "type":"float", "value":"2.0"},{"type":"1DintArray", "value":"2,3,4,5"},{"type":"2DintArray", "value":"2,3,4,5,,6,7,8,9"}]}
+{"variables":[{"type":"int", "value":"1"},{ "type":"float", "value":"2.0"},{"type":"1DintArray", "value":"2,3,4,5"},{"type":"2DintArray", "value":"2,3,4,5,,6,7,8,9"}]}
