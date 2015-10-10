@@ -17,7 +17,22 @@ if(is_null($GLOBALS['conn']) == true)
 
 <?php
 
-$userid = 1;
+$userid = $_POST["login"];
+
+$sql = "SELECT userid,name,email,current_prob FROM user where userid='".$userid."'";
+
+$result = mysqli_query($conn,$sql);
+
+$username = "default";
+
+while($row = $result->fetch_assoc())
+{
+
+    $username = $row["name"];
+
+}
+
+
 
 $sql = "SELECT id,name FROM problem_type";
 
@@ -29,6 +44,8 @@ if(!$result || (mysqli_num_rows($result) == 0))
 }
 else
 {
+    echo "<h2> Hi ".$username."</h2>";
+
     echo "<h2> Problem Types</h2>";
     echo "<table class='table table-striped table borderless table-condensed' width='100'>";
     $count = 1;

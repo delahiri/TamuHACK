@@ -1,45 +1,35 @@
-import java.io.File;
-import java.io.FileWriter;
+package backend;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
-public class CompAndExecHelper {
+enum CompileResult {
+	COMPILE_ERROR, COMPILE_SUCCESS
+}
 
-	public static File createJavaFile(String javaFileString) throws IOException {
+enum ExecutorResult {
+	RUN_ERROR, RUN_SUCCESS, TLE
+}
 
-		String javaFilePath = new File(".").getCanonicalPath() + File.separator + "Solution.java";
-		File file = new File(javaFilePath);
-		FileWriter out = new FileWriter(file);
-		inputImports(out);
-		out.write(javaFileString);
-		out.flush();
-		out.close();
-		return file;
+public class CodeTester {
 
-	}
+	public static void main(String[] args) throws IOException {
 
-	public static String readFileToString() throws IOException {
-
-		File dirs = new File(".");
-		String filePath = dirs.getCanonicalPath() + File.separator + "Solution.java";
-
-		StringBuilder stringBuff = new StringBuilder();
-		List<String> fileString = Files.readAllLines(Paths.get(filePath));
-		System.out.println(fileString);
-		for (String line : fileString) {
-			stringBuff.append(line);
-			stringBuff.append(System.getProperty("line.separator"));
+		String javaFileString = CompAndExecHelper.readFileToString();
+		String javaFilePath = CompAndExecHelper.createJavaFile(javaFileString).getCanonicalPath();
+		Compiler compiler = new Compiler();
+		CompileResult cr = compiler.compile("java", javaFilePath);
+		if (CompileResult.valueOf("COMPILE_ERROR").equals(cr)) {
+			System.out.println("Compilation failed!");
+			System.exit(1);
 		}
-		return stringBuff.toString();
-
-	}
-
-	public static void inputImports(FileWriter out) throws IOException {
-
-		out.write("import java.util.*;");
-		out.write("import java.lang.*;");
+		if (CompileResult.valueOf("COMPILE_SUCCESS").equals(cr)) {
+			System.out.println("Compilation Completed Successfully!");
+		}
+		ExecutorResult execResult = Executor.execute("java", 0);
+		if (ExecutorResult.valueOf("TLE").equals(execResult)) {
+			System.out.println("Time Limit Exceeded");
+			System.exit(1);
+		}
 
 	}
 
