@@ -36,14 +36,11 @@ else
         echo "<tr>";
         echo "<td> Problem no. ".$count."</td>";
         echo "<td>".$row["problem_name"]."</td>";
-
-        echo "<td><div style='float:right;'> <a href='#' class='btn btn-primary'> Give it a shot! </a> </div> </td>";
-
+        $problemurl = "tryProblem.php?id=".$row["id"];
+        echo "<td><div style='float:right;'> <a href='".$problemurl."' class='btn btn-primary'> Give it a shot! </a> </div> </td>";
         echo "</tr>";
         $count++;
-        //onClick="return confirm('Delete This account?')"
-        //echo "contact name : ". $row["contact_name"];
-        //echo "<br>";
+
     }
     echo "</table>";
 }
@@ -53,4 +50,5 @@ else
 
 <?php
 include_once("footer.php");
+mysqli_close($conn);
 ?>
