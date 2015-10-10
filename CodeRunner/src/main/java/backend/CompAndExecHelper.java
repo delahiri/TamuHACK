@@ -1,3 +1,5 @@
+package backend;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,14 +15,16 @@ public class CompAndExecHelper {
 		File file = new File(javaFilePath);
 		FileWriter out = new FileWriter(file);
 		inputImports(out);
-		int index = javaFileString.lastIndexOf("}");
+		StringBuilder local = javaFileString;
+		int index = local.lastIndexOf("}");
 		// System.out.println("INDEX : " + index);
 		// System.out.println("CHAR : "+ javaFileString.charAt(index));
-		javaFileString.deleteCharAt(index);
-		System.out.println(javaFileString);
+		local.deleteCharAt(index);
+		System.out.println(local);
 		// javaFileString.substring(0, javaFileString.)
-		//System.out.println(javaFileString);
-		out.write(javaFileString.toString());
+		// System.out.println(javaFileString);
+		out.write(local.toString());
+		local.append("}");
 		out.write("\n");
 		out.write(mainMethod);
 		out.write("\n}");

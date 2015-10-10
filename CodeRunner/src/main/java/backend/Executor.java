@@ -1,6 +1,8 @@
 package backend;
+
 import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.TimeUnit;
 
 public class Executor {
@@ -17,7 +19,7 @@ public class Executor {
 		String fileDir = new File(".").getCanonicalPath();
 		String filePath = fileDir + File.separator + "out.txt";
 		File out = new File(filePath);
-		p.redirectOutput(out);
+		p.redirectOutput(Redirect.appendTo(out));
 		if (out.exists())
 			System.out.println("Output file generated " + out.getAbsolutePath());
 		try {
