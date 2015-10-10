@@ -26,21 +26,21 @@ public class ConnectionManager {
 	  		{
 	  			e.printStackTrace();
 	  		}
-	  		Connection conn = null;
+	  		//Connection conn = null;
 	  		try 
 	  		{
-	  			conn = DriverManager.getConnection("jdbc:mysql://hostname:port/dbname","username", "password");
+	  			conn = DriverManager.getConnection("jdbc:mysql://localhost/codeclub","root", "");
 	  		} 
 	  		catch (SQLException e) 
 	  		{
 	  			e.printStackTrace();
 	  		}
-	  		try 
-	  		{
-	  			conn.close();
-	  		} catch (SQLException e) {
-	  			e.printStackTrace();
-	  		}
+			// try
+			// {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
 	  
 	      }
 	      return conn;

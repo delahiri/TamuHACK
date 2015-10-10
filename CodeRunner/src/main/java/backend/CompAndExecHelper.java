@@ -20,7 +20,6 @@ public class CompAndExecHelper {
 		// System.out.println("INDEX : " + index);
 		// System.out.println("CHAR : "+ javaFileString.charAt(index));
 		local.deleteCharAt(index);
-		System.out.println(local);
 		// javaFileString.substring(0, javaFileString.)
 		// System.out.println(javaFileString);
 		out.write(local.toString());

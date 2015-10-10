@@ -1,6 +1,5 @@
 package backend;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +14,15 @@ enum ExecutorResult {
 
 public class CodeTester {
 
-	private final static StringBuilder javaFileString = new StringBuilder(
-			"public class Solution {public boolean isPalindrome(int x) {if (x < 0) {return false;}int div = 1;while (x / div >= 10) {div = div * 10;}while (div >= 10) {if (x / div != x % 10) {return false;}x = (x % div) / 10;div = div / 100;}return true;}}");
+	public String codeString;
 
-	public static void main(String[] args) throws IOException {
-
+	public void testCode() throws IOException {
+		StringBuilder javaFileString = new StringBuilder(codeString);
 		List<String> mainMethodList = new ArrayList<String>();
 		mainMethodList.add(
-				"public static void main(String[] args) {Solution s = new Solution();System.out.println(s.isPalindrome(1111));}");
+				"public static void main(String[] args) {Solution s = new Solution();System.out.println(s.giveSum(1,2));}");
 		mainMethodList.add(
-				"public static void main(String[] args) {Solution s = new Solution();System.out.println(s.isPalindrome(1112));}");
+				"public static void main(String[] args) {Solution s = new Solution();System.out.println(s.giveSum(2,3));}");
 		for (String mainMethod : mainMethodList) {
 			String javaFilePath = CompAndExecHelper.createJavaFile(javaFileString, mainMethod).getCanonicalPath();
 			Compiler compiler = new Compiler();

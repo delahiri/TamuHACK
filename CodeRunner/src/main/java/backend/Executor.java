@@ -38,6 +38,7 @@ public class Executor {
 			System.err.println(ex);
 		} finally {
 			new File(fileDir + File.separator + "Solution.class").delete();
+			new File(fileDir + File.separator + "Solution.java").delete();
 		}
 		System.out.println("Code execution finished!");
 		return ExecutorResult.RUN_SUCCESS;
