@@ -14,7 +14,7 @@ public class CompAndExecHelper {
 		String javaFilePath = new File(".").getCanonicalPath() + File.separator + "Solution.java";
 		File file = new File(javaFilePath);
 		FileWriter out = new FileWriter(file);
-		inputImports(Redirect.out);
+		inputImports(out);
 		StringBuilder local = javaFileString;
 		int index = local.lastIndexOf("}");
 		// System.out.println("INDEX : " + index);
