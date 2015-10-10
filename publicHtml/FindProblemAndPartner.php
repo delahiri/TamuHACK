@@ -24,7 +24,7 @@ if(is_null($GLOBALS['conn']) == true)
 
 
 $problemid = 1;   //randomly generated. through a query.
-$userid = $_GET["userid"];
+$userid = $_SESSION["userid"];
 $problemtypeid = $_GET["problemtypeid"];
 $sql = "SELECT id,problem_name,statement,testcases FROM problems where problem_type='".$problemtypeid."'";
 
@@ -67,9 +67,10 @@ if(!$result || (mysqli_num_rows($result) == 0))
 }
 else
 {
+    $count = 0;
     while($row = $result->fetch_assoc())
     {
-
+        $count++;
         echo "<div>";
         echo "<b> User </b>";
         echo "<span>".$row["name"]."</span>";
@@ -77,6 +78,7 @@ else
         echo "<br> <br>";
         $problemhref = 'tryProblem.php?id='.$problemid;
         echo "<a class='btn btn-success' href=".$problemhref."> Continue to Problem </a>";
+        break;
     }
 }
 

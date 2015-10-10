@@ -3,9 +3,18 @@
  * Created by PhpStorm.
  * User: RatneshThakur
  * Date: 10/9/2015
- * Time: 9:48 PM
+ * Time: 10:29 PM
  */
+$PageTitle="Finding Problem";
+include_once("header.php");
 
-echo "Recived request with id".$_GET["id"];
-//will remove this echo
+require '../resources/config.php';
+if(is_null($GLOBALS['conn']) == true)
+{
+    $conn = getConnection();
+}
+?>
+
+<?php
+
 ?>

@@ -5,8 +5,9 @@
  * Date: 10/9/2015
  * Time: 6:58 PM
  */
-$PageTitle="Home";
+
 include_once("header.php");
+$PageTitle="Home";
 
 require '../resources/config.php';
 if(is_null($GLOBALS['conn']) == true)
@@ -17,7 +18,8 @@ if(is_null($GLOBALS['conn']) == true)
 
 <?php
 
-$userid = $_POST["login"];
+
+$userid = $_SESSION["userid"];
 
 $sql = "SELECT userid,name,email,current_prob FROM user where userid='".$userid."'";
 
