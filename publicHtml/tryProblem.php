@@ -16,6 +16,8 @@ if(is_null($GLOBALS['conn']) == true)
 
 $problemid = $_GET["id"];
 
+echo "<h2>".$problemid."</h2>";
+
 $sql = "select solution_template from problems where id='".$problemid."'";
 $result = mysqli_query($conn,$sql);
 
@@ -55,7 +57,7 @@ else
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <script>
-        function func(){
+        function func(problemid){
             var string = editor.getValue();
 
             var input = document.getElementById("code");
@@ -64,7 +66,8 @@ else
                 url: 'insert_into_database.php',
                 type: 'POST', // performing a POST request
                 data : {
-                    code : string // will be accessible in $_POST['data1']
+                    code : string, // will be accessible in $_POST['data1']
+                    problemid: problemid
                 },
                 success: function(data)
                 {
@@ -82,7 +85,7 @@ else
         <div class="col-lg-6 col-md-8 col-sm-8">
             <pre id="editor3" style="width: 100%;"> <?php echo $solution_template ?></pre>
             <div class="scrollmargin"></div>
-            <button class="btn btn-success" onclick="func();" type="button">Submit</button>
+            <button class="btn btn-success" onclick="func(<?php echo $problemid?>);" type="button">Submit</button>
             <div id="hidden_form">
                 <form name="form" id="form_hidden" action="">
                     <input type="hidden" name="code" id="code" value=""/>
